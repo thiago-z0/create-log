@@ -45,7 +45,24 @@ function enviarLog ($json){
   }
 }
 
-//Para Usar na funcao de log
+// Para Usar na funcao que gera um log.
 require 'log.php';
 
-$log='[{"app":"peerbr","nivel":"erro","detalhes":"Erro Qualquer Agora","mensagem":"Erro na execucao X","ip":"177139154000","erro":""},{"app":"peerbr","nivel":"info","detalhes":"Erro Qualquer Agora","mensagem":"Erro na execucao X","ip":"177139154000","erro":""},{"app":"fmi","nivel":"erro","detalhes":"Erro Qualquer Agora","mensagem":"Erro na execucao X","ip":"177139154000","erro":""},{"app":"adiante","nivel":"erro","detalhes":"Erro Qualquer Agora","mensagem":"Erro na execucao X","ip":"177139154000","erro":""},{"app":"adiante","nivel":"erro","detalhes":"Erro Qualquer Agora","mensagem":"Erro na execucao X","ip":"177139154000","erro":""}]';
+// Exemplo de Array de Logs
+$log='[
+      {"app":"peerbr",
+      "nivel":"erro",
+      "detalhes":"Erro Qualquer Agora",
+      "mensagem":"Erro na execucao X",
+      "ip":"177139154000","erro":""
+      },
+      {"app":"peerbr",
+      "nivel":"info",
+      "detalhes":"Erro Qualquer Agora",
+      "mensagem":"Erro na execucao X",
+      "ip":"177139154000","erro":""
+      },
+      ]';
+
+// Chamada da Funcao;
+enviarLog($log);
