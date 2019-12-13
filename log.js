@@ -17,28 +17,34 @@ var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
       }*/
 export default async function Log (log) {
 
-  // Time-stamp da criacao do log.
-  const timeStampEnvio = new Date();
-
   var json = '';
   try {
-    const novoArray = log.push(timeStampEnvio);
-    json = JSON.stringify(novoArray);
+    json = JSON.stringify(log);
   } catch (error) {
     json = log.toString();
     console.log('Log com erro na escrita!');
+    return;
   }
 
   // Gera hash aleatorio para id de log.
-  const n = Math.floor(Math.random() * 11);
-  const k = Math.floor(Math.random() * 1000000);
-  const secret = String.fromCharCode(n) + k;
+  const n = Math.floor(Math.random() * 9999999999);
+  const k = Math.floor(Math.random() * 9999999999);
+  const secret = (n*k).toString();
+
+  const time = new Date();
+  const timeString = time.toString();
 
   var params = {
     DelaySeconds: 0,
     MessageBody: json,
+    MessageAttributes: {
+      "timeStampEnvio": {
+        DataType: "String",
+        StringValue: timeString,
+      },
+    },
     MessageDeduplicationId: secret, 
-    MessageGroupId: secret,
+    MessageGroupId: secret+1,
     // Url da QUEUE
     QueueUrl: "https://sqs.sa-east-1.amazonaws.com/544005205437/logs.fifo"
   };
